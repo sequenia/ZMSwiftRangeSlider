@@ -279,8 +279,8 @@ open class RangeSlider: UIControl {
                 maxValueDisplayLayer.string = "\(maxValue)"
             }
             maxValueDisplayLayer.setNeedsDisplay()
-            CATransaction.commit()
         }
+        CATransaction.commit()
     }
     
     func position(_ value: Int) -> CGFloat {
