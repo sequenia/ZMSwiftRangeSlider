@@ -43,6 +43,20 @@ open class RangeSlider: UIControl {
             updateLayerFrames()
         }
     }
+    
+    @IBInspectable open var minValueThumbBackgroundColor: UIColor = UIColor(white: 0.9, alpha: 1.0) {
+        didSet {
+            minValueThumbLayer.thumbBackgroundColor = minValueThumbBackgroundColor.cgColor
+            updateLayerFrames()
+        }
+    }
+    
+    @IBInspectable open var maxValueThumbBackgroundColor: UIColor = UIColor(white: 0.9, alpha: 1.0) {
+        didSet {
+            maxValueThumbLayer.thumbBackgroundColor = maxValueThumbBackgroundColor.cgColor
+            updateLayerFrames()
+        }
+    }
 
     @IBInspectable open var minValueThumbTintColor: UIColor = UIColor(white: 0.9, alpha: 1.0) {
         didSet {
