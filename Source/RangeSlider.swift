@@ -97,6 +97,12 @@ open class RangeSlider: UIControl {
         }
     }
     
+    @IBInspectable open var thumbMaxRange: Int = 21 {
+        didSet {
+            updateLayerFrames()
+        }
+    }
+    
     @IBInspectable open var displayTextFontSize: CGFloat = 14.0 {
         didSet {
             updateLayerFrames()
@@ -144,11 +150,6 @@ open class RangeSlider: UIControl {
         let count = rangeValues.count
         var index = Int(location.x * CGFloat(count) / (bounds.width - thumbSize))
         
-        if maxValue == minValue && location.x > beginTrackLocation.x && !maxValueThumbLayer.isHighlight {
-            maxValueThumbLayer.isHighlight = true
-            minValueThumbLayer.isHighlight = false
-        }
-        
         if index < 0 {
             index = 0
         } else if index > count - 1 {
@@ -156,15 +157,11 @@ open class RangeSlider: UIControl {
         }
         
         if minValueThumbLayer.isHighlight {
-            if index > rangeValues.index(of: maxValue)! {
-                minValue = maxValue
-            } else {
+            if maxValue - rangeValues[index] >= thumbMaxRange {
                 minValue = rangeValues[index]
             }
         } else if maxValueThumbLayer.isHighlight {
-            if index < rangeValues.index(of: minValue)! {
-                maxValue = minValue
-            } else {
+            if rangeValues[index] - minValue >= thumbMaxRange {
                 maxValue = rangeValues[index]
             }
         }
@@ -293,4 +290,5 @@ open class RangeSlider: UIControl {
         }
         return (bounds.width - thumbSize) * CGFloat(index) / CGFloat(count) + thumbRadius
     }
+    
 }
